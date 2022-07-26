@@ -1,9 +1,8 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
 import Image from 'next/future/image'
-import { FormEventHandler, useState } from 'react'
+import {  useState } from 'react'
 import { supabaseClient } from '@supabase/auth-helpers-nextjs'
-import { error } from 'console'
+
 
 const Home: NextPage = () => {
 
@@ -31,7 +30,7 @@ const Home: NextPage = () => {
         .from("documents")
         .upload(filePath, file);
 
-          const fileUrl: string = upload?.data?.Key;
+          const fileUrl: string | undefined = upload?.data?.Key;
 
       console.log(fileUrl);
 
@@ -60,7 +59,7 @@ const Home: NextPage = () => {
         .from("documents")
         .upload(filePath, file);
 
-      const fileUrl:string = upload?.data?.Key;
+      const fileUrl: string | undefined = upload?.data?.Key;
 
       console.log(fileUrl)
 
