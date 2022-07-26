@@ -2,17 +2,95 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/future/image'
 import { FormEventHandler, useState } from 'react'
+import { supabaseClient } from '@supabase/auth-helpers-nextjs'
+import { error } from 'console'
 
 const Home: NextPage = () => {
 
   const [loading, setLoading] = useState(false)
 
-  console.log({loading})
+  const [motivation, setMotivation] = useState('')
+  const [supervisor, setSupervisor] = useState('')
+
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+
+    setLoading(true)
+
+    try {
+      if (!e.target.files || e.target.files.length === 0) {
+        throw new Error("There was an error uploading the file");
+      }
+
+      const file = e.target.files[0];
+      const fileExt = file.name.split(".").pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      let upload = await supabaseClient.storage
+        .from("documents")
+        .upload(filePath, file);
+
+      const fileUrl = upload.data.Key;
+
+      console.log(fileUrl);
+
+      setMotivation(fileUrl);
+      setLoading(false);
+      return fileUrl;
+
+    } catch (error) {
+      return null;
+    }
+  };
+
+  const handleDocUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoading(true)
+    try {
+      if (!e.target.files || e.target.files.length === 0) {
+        throw new Error("There was an error uploading the file");
+      }
+
+      const file = e.target.files[0];
+      const fileExt = file.name.split(".").pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      let upload = await supabaseClient.storage
+        .from("documents")
+        .upload(filePath, file);
+
+      const fileUrl = upload.data.Key;
+
+      console.log(fileUrl)
+
+      setSupervisor(fileUrl)
+       setLoading(false);
+      return fileUrl;
+    } catch (error) {
+      return null;
+    }
+  };
+
+
 
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   setLoading(true)
   e.preventDefault()
-  const {designation, first_name, last_name, id_number, email, ms_excel, ms_projects, project_management} = Object.fromEntries(new FormData(e.currentTarget));
+  const {designation,
+        first_name,
+        last_name,
+        id_number,
+        email,
+        ms_excel,
+        ms_projects,
+        project_management,
+        motivation_letter,
+        supervisor_letter,
+        company,
+        age,
+        employment,
+        qualification} = Object.fromEntries(new FormData(e.currentTarget));
 
   console.log({
     designation,
@@ -23,7 +101,18 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     ms_excel,
     ms_projects,
     project_management,
+    motivation_letter,
+    supervisor_letter,
+    company,
+    age,
+    employment,
+    qualification,
   });
+
+
+
+
+
 
   const res = await fetch(`/api/submit`, {
     method: "POST",
@@ -31,14 +120,20 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      designation,
-      first_name,
-      last_name,
-      id_number,
-      email,
-      ms_excel,
-      ms_projects,
-      project_management,
+      designation: designation,
+      first_name: first_name,
+      last_name: last_name,
+      id_number: id_number,
+      email: email,
+      ms_excel:ms_excel,
+      ms_projects: ms_projects,
+      project_management: project_management,
+      motivation_letter: motivation,
+      supervisor_letter: supervisor,
+      company: company,
+      age: age,
+      employment: employment,
+      qualification: qualification
     }),
   });
 
@@ -66,6 +161,7 @@ if (res.ok) {
         alt="banner"
         width={2433}
         height={806}
+        priority={true}
         className="w-full object-cover rounded-t-lg"
       />
       <form
@@ -73,6 +169,7 @@ if (res.ok) {
         onSubmit={handleSubmit}
       >
         <div className="w-full"></div>
+
         <div className="w-full mt-4 px-4 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="flex flex-col w-full">
             <label
@@ -123,6 +220,74 @@ if (res.ok) {
             />
           </div>
         </div>
+
+        <div className="w-full mt-6 px-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex flex-col w-full">
+            <label className="text-gray-600 font-medium text-sm" htmlFor="age">
+              Age
+            </label>
+            <input
+              type="number"
+              required
+              id="age"
+              placeholder="Age"
+              name="age"
+              className="px-2 py-1 border border-gray-400 rounded-lg mt-1"
+            />
+          </div>
+          <div className="flex flex-col w-full">
+            <label
+              className="text-gray-600 font-medium text-sm"
+              htmlFor="company"
+            >
+              Company
+            </label>
+            <input
+              type="text"
+              id="company"
+              required
+              placeholder="Company"
+              name="company"
+              className="px-2 py-1 border border-gray-400 rounded-lg mt-1"
+            />
+          </div>
+          <div className="flex flex-col w-full">
+            <label
+              className="text-gray-600 font-medium text-sm"
+              htmlFor="employment"
+            >
+              Employment
+            </label>
+            <select
+              id="employment"
+              placeholder="employment"
+              name="employment"
+              className="px-2 py-1 border border-gray-400 rounded-lg mt-1"
+            >
+              <option value="junior management">Junior Management</option>
+              <option value="middle management">Middle Management</option>
+              <option value="senior management">Senior Management</option>
+            </select>
+          </div>
+          <div className="flex flex-col w-full">
+            <label
+              className="text-gray-600 font-medium text-sm"
+              htmlFor="qualification"
+            >
+              Qualification
+            </label>
+            <select
+              id="qualification"
+              placeholder="qualification"
+              name="qualification"
+              className="px-2 py-1 border border-gray-400 rounded-lg mt-1"
+            >
+              <option value="Undergraduate">Undergraduate</option>
+              <option value="Postgraduate">Postgraduate</option>
+            </select>
+          </div>
+        </div>
+
         <div className="w-full mt-8 px-4 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex flex-col w-full">
             <label
@@ -214,6 +379,88 @@ if (res.ok) {
           </div>
         </div>
 
+        <div className="px-5 mt-6">
+          <label className="block text-sm font-medium text-gray-700">
+            Motivation Letter
+          </label>
+          <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+            <div className="space-y-1 text-center">
+              <svg
+                className="mx-auto h-12 w-12 text-gray-400"
+                stroke="currentColor"
+                fill="none"
+                viewBox="0 0 48 48"
+                aria-hidden="true"
+              >
+                <path
+                  d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <div className="flex text-sm text-gray-600">
+                <label
+                  htmlFor="motivation_letter"
+                  className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                >
+                  <span>Upload motivation letter</span>
+                  <input
+                    id="motivation_letter"
+                    name="motivation_letter"
+                    onChange={handleFileUpload}
+                    type="file"
+                    className="sr-only"
+                  />
+                </label>
+                <p className="pl-1">or drag and drop</p>
+              </div>
+              <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="px-5 mt-6">
+          <label className="block text-sm font-medium text-gray-700">
+            Upload supervisor letter
+          </label>
+          <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+            <div className="space-y-1 text-center">
+              <svg
+                className="mx-auto h-12 w-12 text-gray-400"
+                stroke="currentColor"
+                fill="none"
+                viewBox="0 0 48 48"
+                aria-hidden="true"
+              >
+                <path
+                  d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <div className="flex text-sm text-gray-600">
+                <label
+                  htmlFor="supervisor_letter"
+                  className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                >
+                  <span>Upload supervisor letter</span>
+                  <input
+                    id="supervisor_letter"
+                    name="supervisor_letter"
+                    onChange={handleDocUpload}
+                    type="file"
+                    className="sr-only"
+                  />
+                </label>
+                <p className="pl-1">or drag and drop</p>
+              </div>
+              <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+            </div>
+          </div>
+        </div>
+
         <button
           type="submit"
           disabled={loading}
@@ -223,7 +470,7 @@ if (res.ok) {
         </button>
         <div className="px-6 mt-8">
           <h2 className="text-lg font-bold">Popia Compliant</h2>
-          <p className="text-sm">
+          <p className="text-xs">
             The Protection of Personal Information Act (POPI Act) comes into
             effect on 1 July 2021 and to remain compliant with its provisions
             SAIMI would like to give you, as its stakeholder, the opportunity to
