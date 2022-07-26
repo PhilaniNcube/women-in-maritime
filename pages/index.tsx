@@ -9,8 +9,8 @@ const Home: NextPage = () => {
 
   const [loading, setLoading] = useState<boolean>(false)
 
-  const [motivation, setMotivation] = useState<string>('')
-  const [supervisor, setSupervisor] = useState<string>('')
+  const [motivation, setMotivation] = useState<string | undefined>('')
+  const [supervisor, setSupervisor] = useState<string | undefined>('')
 
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,7 @@ const Home: NextPage = () => {
         .from("documents")
         .upload(filePath, file);
 
-          const fileUrl:string = upload?.data?.Key;
+          const fileUrl: string = upload?.data?.Key;
 
       console.log(fileUrl);
 
