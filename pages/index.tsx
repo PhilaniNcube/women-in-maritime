@@ -7,10 +7,10 @@ import { error } from 'console'
 
 const Home: NextPage = () => {
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const [motivation, setMotivation] = useState('')
-  const [supervisor, setSupervisor] = useState('')
+  const [motivation, setMotivation] = useState<string>('')
+  const [supervisor, setSupervisor] = useState<string>('')
 
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
