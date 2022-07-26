@@ -31,7 +31,7 @@ const Home: NextPage = () => {
         .from("documents")
         .upload(filePath, file);
 
-      const fileUrl = upload.data.Key;
+      const fileUrl = upload?.data?.Key;
 
       console.log(fileUrl);
 
@@ -60,7 +60,7 @@ const Home: NextPage = () => {
         .from("documents")
         .upload(filePath, file);
 
-      const fileUrl = upload.data.Key;
+      const fileUrl = upload?.data?.Key;
 
       console.log(fileUrl)
 
