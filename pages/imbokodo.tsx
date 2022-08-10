@@ -4,30 +4,58 @@ import { useState } from "react";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { RadioGroup } from "@headlessui/react";
 import {CheckIcon} from "@heroicons/react/outline"
+import serviceRole from "../utils/serviceRole";
 
 
 const plans = [
   {
     name: "Seminar & Awards Evening",
-    ram: "12GB",
-    cpus: "6 CPUs",
-    disk: "160 GB SSD disk",
+
   },
   {
     name: "Seminar Only",
-    ram: "16GB",
-    cpus: "8 CPUs",
-    disk: "512 GB SSD disk",
+
   },
   {
     name: "Awards Evening Only",
-    ram: "32GB",
-    cpus: "12 CPUs",
-    disk: "1024 GB SSD disk",
+
   },
 ];
 
-const Imbokodo: NextPage = () => {
+interface Man {
+  id: number;
+  created_at: string;
+  title: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  tle: string;
+  organisation: string;
+  attending: string;
+  gender: 'male'
+
+}
+
+interface Woman {
+  id: number;
+  created_at: string;
+  title: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  tle: string;
+  organisation: string;
+  attending: string;
+  gender: 'female'
+
+}
+
+
+
+const Imbokodo = ({men, women}:{men: Man[], women:Woman[]}) => {
+
+  console.log({men, women});
+
   const [loading, setLoading] = useState<boolean>(false);
 
    const [selected, setSelected] = useState(plans[0]);
@@ -46,8 +74,20 @@ const Imbokodo: NextPage = () => {
       email,
       tel,
       organisation,
+      gender
 
     } = Object.fromEntries(new FormData(e.currentTarget));
+
+
+     if (gender === 'male' && men.length >= 30) {
+       alert('Our apologies, we have reached the maximum number of of male attendes')
+       return;
+     } else if (gender === 'female' && women.length >= 70) {
+       alert(
+         "Our apologies, we have reached the maximum number of of female attendes"
+       );
+       return;
+     }
 
     console.log({
       title,
@@ -56,7 +96,8 @@ const Imbokodo: NextPage = () => {
       email,
       tel,
       organisation,
-      selected
+      selected,
+      gender,
     });
 
     const res = await fetch(`/api/imbokodo`, {
@@ -72,6 +113,7 @@ const Imbokodo: NextPage = () => {
         tel: tel,
         organisation: organisation,
         attending:selected,
+        gender: gender,
       }),
     });
 
@@ -97,26 +139,64 @@ const Imbokodo: NextPage = () => {
         priority={true}
         className="w-full object-cover rounded-t-lg"
       />
+
+      {men.length >= 30 && (
+        <h2 className="px-4 text-lg font-bold my-4 text-red">
+          We have reached the maximum aloted spaces for male attendees
+        </h2>
+      )}
+      {women.length >= 70 && (
+        <h2 className="px-4 text-lg font-bold my-4 text-red-600">
+          We have reached the maximum aloted spaces for male attendees
+        </h2>
+      )}
+
       <form
         className="w-full bg-gray-100 p-6 shadow-xl rounded-b-lg"
         onSubmit={handleSubmit}
       >
-        <div className="w-2/3 md:w-1/3 flex flex-col px-4">
-          <label className="text-gray-600 font-medium text-sm" htmlFor="title">
-            Title
-          </label>
-          <select
-            id="title"
-            placeholder="title"
-            name="title"
-            className="px-2 py-1 border border-gray-400 rounded-lg mt-1"
-          >
-            <option value="Miss">Miss</option>
-            <option value="Mrs">Mrs</option>
-            <option value="Mr">Mr</option>
-            <option value="Dr">Dr</option>
-            <option value="Prof">Prof</option>
-          </select>
+        <div className="flex gap-2">
+          <div className="w-2/3 md:w-1/3 flex flex-col px-4">
+            <label
+              className="text-gray-600 font-medium text-sm"
+              htmlFor="title"
+            >
+              Title
+            </label>
+            <select
+              id="title"
+              placeholder="title"
+              name="title"
+              className="px-2 py-1 border border-gray-400 rounded-lg mt-1"
+            >
+              <option value="Miss">Miss</option>
+              <option value="Mrs">Mrs</option>
+              <option value="Mr">Mr</option>
+              <option value="Dr">Dr</option>
+              <option value="Prof">Prof</option>
+            </select>
+          </div>
+          <div className="w-1/3 flex flex-col px-4">
+            <label
+              className="text-gray-600 font-medium text-sm"
+              htmlFor="gender"
+            >
+              Gender
+            </label>
+            <select
+              id="gender"
+              placeholder="gender"
+              name="gender"
+              className="px-2 py-1 border border-gray-400 rounded-lg mt-1"
+            >
+              <option disabled={men.length === 30} value="male">
+                Male
+              </option>
+              <option disabled={women.length === 70} value="female">
+                Female
+              </option>
+            </select>
+          </div>
         </div>
 
         <div className="w-full mt-4 px-4 grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -284,3 +364,18 @@ const Imbokodo: NextPage = () => {
 };
 
 export default Imbokodo;
+
+
+export async function getServerSideProps() {
+
+const men = await serviceRole.from("imbokodo").select("*").eq("gender", "male");
+const women = await serviceRole.from("imbokodo").select("*").eq("gender", "female");
+
+
+   return {
+    props: {
+      men: men.data, women:women.data
+    }
+   }
+
+}
