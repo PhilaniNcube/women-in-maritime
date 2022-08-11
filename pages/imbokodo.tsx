@@ -129,7 +129,7 @@ const Imbokodo = ({men, women}:{men: Man[], women:Woman[]}) => {
       alert(result.message);
       setLoading(false)
     } else {
-      alert("There was an error. Please try again later");
+      alert(result.message);
       console.log(result);
       setLoading(false);
     }
