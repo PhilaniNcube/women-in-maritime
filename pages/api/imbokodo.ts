@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       email,
       tel,
       organisation,
-      attending} = req.body
+      attending,gender, diet} = req.body
 
     const { data, error } = await serviceRole.from('imbokodo').insert([{
         title: title,
@@ -29,13 +29,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         email: email,
         tel: tel,
         organisation:organisation,
-        attending: attending
+        attending: attending,
+        gender:gender,
+        diet:diet,
       }])
 
     console.log({data, error})
 
+        if(error !== null ) {
 
-           const subscribingUser = {
+          res.send({message: 'You have already made a submission'})
+        }  else {
+
+
+          try {
+
+                 const subscribingUser = {
         title: title,
         first_name: first_name,
         last_name: last_name,
@@ -45,10 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         attending:attending,
   }
 
-
-
-  try {
-    const response = await mailchimp.lists.addListMember(listID, {
+ const response = await mailchimp.lists.addListMember(listID, {
       email_address: subscribingUser.email,
       status: 'subscribed',
       merge_fields: {
@@ -59,11 +65,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       tags: [subscribingUser.title, subscribingUser.organisation, subscribingUser.attending || 'Seminar Only' ]
     })
 
-    res.status(200).json({ response, data })
-  } catch (error) {
-    console.log(error)
-    res.status(400).json({ message: error })
-  }
+    res.status(200).json({ message: 'Thank you for your submission',response, data })
+
+          } catch (error) {
+            res.status(400).json({ message:'There was an error processing your submission'})
+          }
+
+
+
+        }
+
+
+
 
 
 }

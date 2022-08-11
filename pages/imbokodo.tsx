@@ -74,7 +74,8 @@ const Imbokodo = ({men, women}:{men: Man[], women:Woman[]}) => {
       email,
       tel,
       organisation,
-      gender
+      gender,
+      diet
 
     } = Object.fromEntries(new FormData(e.currentTarget));
 
@@ -98,6 +99,7 @@ const Imbokodo = ({men, women}:{men: Man[], women:Woman[]}) => {
       organisation,
       selected,
       gender,
+      diet
     });
 
     const res = await fetch(`/api/imbokodo`, {
@@ -114,18 +116,22 @@ const Imbokodo = ({men, women}:{men: Man[], women:Woman[]}) => {
         organisation: organisation,
         attending:selected,
         gender: gender,
+        diet:diet
       }),
     });
 
+    const result = await res.json();
     if (res.ok) {
-      const result = await res.json();
-      setLoading(false);
 
+      setLoading(false);
       console.log(result);
 
-      alert("Thank You for your submission");
+      alert(result.message);
+      setLoading(false)
     } else {
       alert("There was an error. Please try again later");
+      console.log(result);
+      setLoading(false);
     }
   };
 
@@ -185,6 +191,7 @@ const Imbokodo = ({men, women}:{men: Man[], women:Woman[]}) => {
             </label>
             <select
               id="gender"
+              required
               placeholder="gender"
               name="gender"
               className="px-2 py-1 border border-gray-400 rounded-lg mt-1"
@@ -277,6 +284,22 @@ const Imbokodo = ({men, women}:{men: Man[], women:Woman[]}) => {
               required
               placeholder="Organisation"
               name="organisation"
+              className="px-2 py-1 border border-gray-400 rounded-lg mt-1"
+            />
+          </div>
+          <div className="flex flex-col w-full">
+            <label
+              className="text-gray-600 font-medium text-sm"
+              htmlFor="diet"
+            >
+              Dietary Requirements
+            </label>
+            <input
+              type="text"
+              id="diet"
+              required
+              placeholder="halaal, vegetarian, vegan"
+              name="diet"
               className="px-2 py-1 border border-gray-400 rounded-lg mt-1"
             />
           </div>
