@@ -235,7 +235,7 @@ const Home: NextPage = () => {
                 className="text-xs bg-slate-800 text-white"
                 value="Moses Kante Institute Woman in Maritime Research"
               >
-                Moses Kante Institute Woman in Maritime Research
+                Moses Kotane Institute Woman in Maritime Research
               </option>
             </select>
           </div>
