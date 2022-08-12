@@ -189,14 +189,54 @@ const Home: NextPage = () => {
               name="category"
               className="px-2 py-1 border text-sm border-gray-400 rounded-lg mt-1"
             >
-              <option className="text-xs bg-slate-800 text-white" value="Best Women In Maritime Business">Best Women In Maritime Business</option>
-              <option className="text-xs bg-slate-800 text-white" value="Making waves as a newcomer">Making waves as a newcomer</option>
-              <option className="text-xs bg-slate-800 text-white" value="Leading entity in Women Empowerment">Leading entity in Women Empowerment</option>
-              <option className="text-xs bg-slate-800 text-white" value="Sheroes in the sector">Sheroes in the sector</option>
-              <option className="text-xs bg-slate-800 text-white" value="Most Influential">Most Influential</option>
-              <option className="text-xs bg-slate-800 text-white" value="Best Mentor">Best Mentor</option>
-              <option className="text-xs bg-slate-800 text-white" value="Star Performer">Star Performer</option>
-              <option className="text-xs bg-slate-800 text-white" value="Moses Kante Institute Woman in Maritime Research">Moses Kante Institute Woman in Maritime Research</option>
+              <option
+                className="text-xs bg-slate-800 text-white"
+                value="Best Women In Maritime Business"
+              >
+                Best Women In Maritime Business
+              </option>
+              <option
+                className="text-xs bg-slate-800 text-white"
+                value="Making waves as a newcomer"
+              >
+                Making waves as a newcomer
+              </option>
+              <option
+                className="text-xs bg-slate-800 text-white"
+                value="Leading entity in Women Empowerment"
+              >
+                Leading entity in Women Empowerment
+              </option>
+              <option
+                className="text-xs bg-slate-800 text-white"
+                value="Sheroes in the sector"
+              >
+                Sheroes in the sector
+              </option>
+              <option
+                className="text-xs bg-slate-800 text-white"
+                value="Most Influential"
+              >
+                Most Influential
+              </option>
+              <option
+                className="text-xs bg-slate-800 text-white"
+                value="Best Mentor"
+              >
+                Best Mentor
+              </option>
+              <option
+                className="text-xs bg-slate-800 text-white"
+                value="Star Performer"
+              >
+                Star Performer
+              </option>
+              <option
+                className="text-xs bg-slate-800 text-white"
+                value="Moses Kante Institute Woman in Maritime Research"
+              >
+                Moses Kante Institute Woman in Maritime Research
+              </option>
             </select>
           </div>
         </div>
@@ -273,6 +313,7 @@ const Home: NextPage = () => {
                     name="photo"
                     onChange={handleDocUpload}
                     type="file"
+                    accept="image/*"
                     className="sr-only"
                   />
                 </label>
