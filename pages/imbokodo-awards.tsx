@@ -191,27 +191,27 @@ const Home: NextPage = () => {
             >
               <option
                 className="text-xs bg-slate-800 text-white"
-                value="Best Women In Maritime Business"
+                value="Best Women in Maritime Business"
               >
-                Best Women In Maritime Business
+                Best Women in Maritime Business
               </option>
               <option
                 className="text-xs bg-slate-800 text-white"
-                value="Making waves as a newcomer"
+                value="Making Waves as a Newcomer"
               >
-                Making waves as a newcomer
+                Making Waves as a Newcomer
               </option>
               <option
                 className="text-xs bg-slate-800 text-white"
-                value="Leading entity in Women Empowerment"
+                value="Leading Entity in Women Empowerment"
               >
-                Leading entity in Women Empowerment
+                Leading Entity in Women Empowerment
               </option>
               <option
                 className="text-xs bg-slate-800 text-white"
-                value="Sheroes in the sector"
+                value="Sheroes in the Sector"
               >
-                Sheroes in the sector
+                Sheroes in the Sector
               </option>
               <option
                 className="text-xs bg-slate-800 text-white"
