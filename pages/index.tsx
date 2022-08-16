@@ -156,19 +156,23 @@ if (res.ok) {
   return (
     <div className="flex min-h-screen flex-col max-w-4xl px-4 mx-auto items-center justify-center py-2">
       <Image
-        src="/images/banner.jpeg"
+        src="/images/banner.jpg"
         alt="banner"
         width={2433}
         height={806}
         priority={true}
         className="w-full object-cover rounded-t-lg"
       />
+
       <form
         className="w-full bg-gray-100 p-6 shadow-xl rounded-b-lg"
         onSubmit={handleSubmit}
       >
+        {" "}
+        <p className="text-gray-800 text-xl my-4 font-bold px-4">
+          Applications open from 16 August to 22 August.
+        </p>
         <div className="w-full"></div>
-
         <div className="w-full mt-4 px-4 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="flex flex-col w-full">
             <label
@@ -219,7 +223,6 @@ if (res.ok) {
             />
           </div>
         </div>
-
         <div className="w-full mt-6 px-4 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex flex-col w-full">
             <label className="text-gray-600 font-medium text-sm" htmlFor="age">
@@ -286,7 +289,6 @@ if (res.ok) {
             </select>
           </div>
         </div>
-
         <div className="w-full mt-8 px-4 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex flex-col w-full">
             <label
@@ -321,7 +323,10 @@ if (res.ok) {
             />
           </div>
         </div>
-        <div className="w-full mt-8 px-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <p className="text-gray-800 text-md mt-8 font-bold px-4">
+          Please indicate your current level of competency
+        </p>
+        <div className="w-full  px-4 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="flex flex-col w-full">
             <label
               className="text-gray-600 font-medium text-sm"
@@ -353,8 +358,9 @@ if (res.ok) {
               name="project_management"
               className="px-2 py-1 border border-gray-400 rounded-lg mt-1"
             >
-              <option value="yes">Yes</option>
-              <option value="No">No</option>
+              <option value="basic">Basic</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
             </select>
           </div>
 
@@ -377,7 +383,6 @@ if (res.ok) {
             </select>
           </div>
         </div>
-
         <div className="px-5 mt-6">
           <label className="block text-sm font-medium text-gray-700">
             Motivation Letter
@@ -418,7 +423,6 @@ if (res.ok) {
             </div>
           </div>
         </div>
-
         <div className="px-5 mt-6">
           <label className="block text-sm font-medium text-gray-700">
             Upload supervisor letter
@@ -459,7 +463,6 @@ if (res.ok) {
             </div>
           </div>
         </div>
-
         <button
           type="submit"
           disabled={loading}
