@@ -138,7 +138,7 @@ const Imbokodo = ({men, women}:{men: Man[], women:Woman[]}) => {
   return (
     <div className="flex min-h-screen flex-col max-w-4xl px-4 mx-auto items-center justify-center py-2 relative">
       <div className="flex justify-center items-center absolute inset-0 bg-slate-500/40 z-50">
-         <h2 className="text-3xl md:text-5xl rotate-45 px-10 py-5 bg-red-600 font-bold text-white">Entries Closed</h2>
+         <h2 className="text-3xl md:text-5xl rotate-45 px-10 py-5 bg-red-600 font-bold text-white">Registrations Closed</h2>
       </div>
       <Image
         src="/images/imbokodo.jpg"
