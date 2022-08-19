@@ -122,7 +122,12 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col max-w-4xl px-4 mx-auto items-center justify-center py-2">
+    <div className="flex min-h-screen flex-col max-w-4xl px-4 mx-auto items-center justify-center relative py-2">
+      <div className="flex justify-center items-center absolute inset-0 bg-slate-500/40 z-50">
+        <h2 className="text-3xl md:text-5xl rotate-45 px-10 py-5 bg-red-600 font-bold text-white">
+          Nominations Closed
+        </h2>
+      </div>
       <Image
         src="/images/awards.jpg"
         alt="banner"
