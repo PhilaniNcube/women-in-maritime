@@ -49,23 +49,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const response = await mailchimp.lists.addListMember(listID, {
       email_address: subscribingUser.email,
-
-
-
       status: 'subscribed',
       merge_fields: {
         FNAME: subscribingUser.firstName,
         LNAME: subscribingUser.lastName,
       },
       tags: [subscribingUser.idNumber, `MS Excel - ${subscribingUser.msExcel}`, `MS Projects - ${subscribingUser.msProjects}`, `Project Management - ${subscribingUser.projectManagement}`, `Designation - ${subscribingUser.designation}`]
-
-
     })
+
+
 
     res.status(200).json({ response, data })
   } catch (error) {
     console.log(error)
-    res.status(400).json({ message: error })
+    res.status(400).send({ error })
   }
 
 

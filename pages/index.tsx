@@ -143,9 +143,13 @@ if (res.ok) {
   console.log(result)
 
   alert('Thank You for your submission')
+  setLoading(false);
 
 } else {
-  alert('There was an error. Please try again later')
+  const result = await res.json()
+  console.log(result.response)
+  alert(`There was an error. Please try again later. Please remember, you cannot sign up with the same email address more than once.`)
+  setLoading(false)
 }
 
 
