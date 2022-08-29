@@ -87,7 +87,8 @@ const index = ({entries}: { entries: Entry[]}) => {
                           <td className="pl-4 h-full space-y-2">
                             <span>
                               {`${entry.first_name} ${entry.last_name}`} <br />{" "}
-                              <small className="text-xs">{entry.email}</small><br />
+                              <small className="text-xs">{entry.email}</small>
+                              <br />
                               <small className="text-xs">
                                 {entry.qualification}
                               </small>{" "}
@@ -102,14 +103,20 @@ const index = ({entries}: { entries: Entry[]}) => {
                           <td className="pl-4">{entry.project_management}</td>
 
                           <td className="pl-4 bg-red-200">
-                            <Link href={`${entry.motivation_letter}`}>
-                              Download
-                            </Link>
+                            {entry.motivation_letter && (
+                              <Link
+                                href={`https://xkhoyeoanyvetcispiif.supabase.co/storage/v1/object/public/${entry.motivation_letter}`}
+                              >
+                                Download
+                              </Link>
+                            )}
                           </td>
                           <td className="pl-4 bg-blue-200">
-                            <Link href={`${entry.supervisor_letter}`}>
-                              Download
-                            </Link>
+                            {entry.supervisor_letter && (
+                              <Link href={`${entry.supervisor_letter}`}>
+                                Download
+                              </Link>
+                            )}
                           </td>
                         </tr>
                       ))}
