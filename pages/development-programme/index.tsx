@@ -113,7 +113,7 @@ const index = ({entries}: { entries: Entry[]}) => {
                           </td>
                           <td className="pl-4 bg-blue-200">
                             {entry.supervisor_letter && (
-                              <Link href={`${entry.supervisor_letter}`}>
+                              <Link href={`https://xkhoyeoanyvetcispiif.supabase.co/storage/v1/object/public/${entry.supervisor_letter}`}>
                                 Download
                               </Link>
                             )}
