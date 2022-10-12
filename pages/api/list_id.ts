@@ -13,9 +13,9 @@ mailchimp.setConfig({
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-  console.log(req)
+  // console.log(req)
 
-  res.send({message: 'hello'})
+  // res.send({message: 'hello'})
 
 // const request = await fetch(`https://us15.api.mailchimp.com/3.0/lists`, {
 //   method: 'POST',
@@ -27,27 +27,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 // };
 
-  // const response = await mailchimp.lists.createList({
-  //   name: "Imbokodo Maritime",
-  //   permission_reminder: "Conference Sign Up",
-  //   email_type_option: true,
-  //   contact: {
-  //     company: "SAIMI",
-  //     address1: "Ocean Sciences Campus, Gomery Avenue, Summerstrand",
-  //     city: "Port Elizabeth",
-  //     state: "Eastern Cape",
-  //     zip: "6001",
-  //     country: "South Africa",
-  //   },
-  //   campaign_defaults: {
-  //     from_name: "SAIMI",
-  //     from_email: "newsletter@saimi.co.za",
-  //     subject: "subject",
-  //     language: "language",
-  //   },
-  // });
-  // console.log(response);
+//   const response = await mailchimp.lists?.createList({
+//     name: "Measuring the Ocean Economy",
+//     permission_reminder: "Conference Sign Up",
+//     email_type_option: true,
+//     contact: {
+//       company: "SAIMI",
+//       address1: "Ocean Sciences Campus, Gomery Avenue, Summerstrand",
+//       city: "Port Elizabeth",
+//       state: "Eastern Cape",
+//       zip: "6001",
+//       country: "South Africa",
+//     },
+//     campaign_defaults: {
+//       from_name: "SAIMI",
+//       from_email: "newsletter@saimi.co.za",
+//       subject: "subject",
+//       language: "language",
+//     },
+//   });
+//   console.log(response);
 
+
+  // const list = await response.json();
+
+  res.send({message: 'OK'});
 
 
   // try {

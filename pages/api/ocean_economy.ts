@@ -8,66 +8,73 @@ mailchimp.setConfig({
   server: process.env.SERVER_PREFIX,
 })
 
-const listID = process.env.IMBOKODO_ID || ''
 
+const listID = process.env.OCEAN_ECONOMY_ID
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
- const {
-      title,
+
+const {
+      designation,
       first_name,
       last_name,
-      email,
-      tel,
+      email_address,
+      contact_number,
       organisation,
-      attending,gender, diet} = req.body
+       diet} = req.body
 
-    const { data, error } = await serviceRole.from('imbokodo').insert([{
-        title: title,
+    const { data, error } = await serviceRole.from('ocean_economy').insert([{
+        designation: designation,
         first_name: first_name,
         last_name: last_name,
-        email: email,
-        tel: tel,
+        email: email_address,
+        contact_number: contact_number,
         organisation:organisation,
-        attending: attending,
-        gender:gender,
         diet:diet,
       }])
 
-    console.log({data, error})
+
 
         if(error !== null ) {
 
-          res.send({message: 'You have already made a submission'})
+          res.send({message: `Error: ${error.details}`})
         }  else {
 
 
           try {
 
                  const subscribingUser = {
-        title: title,
+       designation: designation,
         first_name: first_name,
         last_name: last_name,
-        email: email,
-        tel: tel,
-        organisation: organisation,
-        attending:attending,
+        email_address: email_address,
+        contact_number: contact_number,
+        organisation:organisation,
+        diet:diet,
+  }
+
+  if(!listID) {
+    throw new Error("No list ID provided")
   }
 
  const response = await mailchimp.lists.addListMember(listID, {
-      email_address: subscribingUser.email,
+      email_address: subscribingUser.email_address,
       status: 'subscribed',
       merge_fields: {
         FNAME: subscribingUser.first_name,
         LNAME: subscribingUser.last_name,
-        PHONE: subscribingUser.tel
+        PHONE: subscribingUser.contact_number
       },
-      tags: [subscribingUser.title, subscribingUser.organisation, subscribingUser.attending || 'Seminar Only' ]
+      tags: [subscribingUser.designation, subscribingUser.organisation, subscribingUser.diet ]
     })
+
+
+
 
     res.status(200).json({ message: 'Thank you for your submission',response, data })
 
           } catch (error) {
+
             res.status(400).json({ message:'There was an error processing your submission'})
           }
 
