@@ -58,7 +58,7 @@ const {
   }
 
  const response = await mailchimp.lists.addListMember(listID, {
-      email_address: subscribingUser.email_address,
+      email_address: email_address,
       status: 'subscribed',
       merge_fields: {
         FNAME: subscribingUser.first_name,
