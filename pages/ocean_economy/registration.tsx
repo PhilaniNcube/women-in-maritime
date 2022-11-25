@@ -12,7 +12,12 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 e.preventDefault()
 setLoading(true)
 
-  const {
+alert('Registration has closed for this event')
+setLoading(false)
+return
+{
+  /***
+ const {
     first_name,
     last_name,
     email_address,
@@ -51,12 +56,22 @@ setLoading(true)
        alert("There was an error. Please try again later");
        setLoading(false)
      }
+* */
+}
+
 
 }
 
 
   return (
     <main className="max-w-7xl mx-auto px-4 my-8">
+
+<div className="absolute inset-0 flex justify-center bg-slate-400/60 items-center">
+
+   <h1 className="text-7xl text-red-600 font-extrabold">Registration Closed</h1>
+
+</div>
+
       <div className="hidden sm:block" aria-hidden="true">
         <div className="py-5">
           <div className="border-t border-gray-200" />
