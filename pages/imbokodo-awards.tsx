@@ -125,7 +125,7 @@ const Home: NextPage = () => {
     <div className="flex min-h-screen flex-col max-w-4xl px-4 mx-auto items-center justify-center relative py-2">
      
       <Image
-        src="/images/awards.jpg"
+        src="/images/Imbokodo in maritime awards registration.jpg"
         alt="banner"
         width={2433}
         height={806}
