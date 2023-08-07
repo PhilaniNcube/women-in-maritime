@@ -234,9 +234,15 @@ const Home: NextPage = () => {
               </option>
               <option
                 className="text-xs bg-slate-800 text-white"
-                value="Moses Kante Institute Woman in Maritime Research"
+                value="Woman in Maritime Research"
               >
-                Moses Kotane Institute Woman in Maritime Research
+                Woman in Maritime Research
+              </option>
+                <option
+                className="text-xs bg-slate-800 text-white"
+                value="Maritime Tech Innovator of the Year"
+              >
+                Maritime Tech Innovator of the Year
               </option>
             </select>
           </div>
