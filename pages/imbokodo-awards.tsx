@@ -143,7 +143,7 @@ const Home: NextPage = () => {
           <h1 className="text-2xl font-bold text-gray-800">
             Enter the name of your nominee
           </h1>
-          <Link href="/images/Awards Categories.docx" className="bg-green-500 text-white rounded px-4 py-2 text-sm">Download Awards Document</Link>
+          <Link href="/categories.docx" className="bg-green-500 text-white rounded px-4 py-2 text-sm">Download Awards Document</Link>
         </div>
 
         <div className="w-full mt-4 px-4 grid grid-cols-1 md:grid-cols-2 gap-4">
