@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Image from "next/future/image";
 import React, { useState } from "react";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
+import Link from "next/link"
 
 const Home: NextPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
