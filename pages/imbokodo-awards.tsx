@@ -137,11 +137,12 @@ const Home: NextPage = () => {
         className="w-full bg-gray-100 p-6 shadow-xl rounded-b-lg"
         onSubmit={handleSubmit}
       >
-        <div className="w-full">
+        <div className="w-full flex justify-between items-center">
           {" "}
-          <h1 className="text-3xl font-bold text-gray-800">
+          <h1 className="text-2xl font-bold text-gray-800">
             Enter the name of your nominee
           </h1>
+          <Link href="/Awards Categories.docx" className="bg-green-500 text-white rounded px-4 py-2 text-sm">Download Awards Document</Link>
         </div>
 
         <div className="w-full mt-4 px-4 grid grid-cols-1 md:grid-cols-2 gap-4">
