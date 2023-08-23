@@ -124,6 +124,9 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col max-w-4xl px-4 mx-auto items-center justify-center relative py-2">
+      <div className="absolute bg-slate-400/60 inset-0 flex items-center justify-center">
+       <h1 className="text-3xl font-bold uppercase">Closed</h1>
+      </div>
      
       <Image
         src="/images/registration.jpg"
